@@ -12,7 +12,7 @@ import {
   TopPairsQueryVariables,
 } from "./generated/subgraph";
 
-const TOP_PAIR_LIMIT = 1000;
+const TOP_PAIR_LIMIT = 99;
 export type Token = TokenQuery["token"];
 export type Pair = TopPairsQuery["pairs"][number];
 
