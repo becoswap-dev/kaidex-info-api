@@ -4,7 +4,7 @@ import fetch from "cross-fetch";
 export const client = new ApolloClient({
   link: new HttpLink({
     fetch,
-    uri: "https://dex-graph.kardiachain.io/subgraphs/name/kai/dex",
+    uri: "https://ex-graph.kardiachain.io/subgraphs/name/kai/exchange-v2",
   }),
   cache: new InMemoryCache(),
 });
