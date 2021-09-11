@@ -4,7 +4,7 @@ import fetch from "cross-fetch";
 export const blockClient = new ApolloClient({
   link: new HttpLink({
     fetch,
-    uri: "https://dex-graph.kardiachain.io/subgraphs/name/blocklytics/kai-blocks",
+    uri: "https://ex-graph.kardiachain.io/subgraphs/name/blocklytics/kai-blocks",
   }),
   cache: new InMemoryCache(),
 });
