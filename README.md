@@ -7,33 +7,6 @@ and volume information. All information is fetched from the underlying subgraphs
 
 The documentation of the endpoints, for Kaidex, can be found [here](documentation.md).
 
-## Development
-
-### Install requirements
-
-```shell
-yarn global add vercel
-```
-
-### Build
-
-```shell
-# Install dependencies
-yarn
-
-# Build project
-vercel dev
-```
-
-Endpoints are based on filename inside the `api/` folder.
-
-```shell
-# api/pairs.ts
-curl -X GET 'localhost:3000/api/pairs'
-
-# ...
-```
-
 ## Production
 
 ### Deploy
@@ -43,5 +16,8 @@ Deployments to production are triggered by a webhook when a commit, or a pull-re
 If you need to force a deployment, use the following command:
 
 ```shell
-vercel --prod
+# Install dependencies
+yarn
+
+yarn start
 ```

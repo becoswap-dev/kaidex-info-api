@@ -65,7 +65,6 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     variables: {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST,
-      lastDate: Date.now(),
     },
     fetchPolicy: "cache-first",
   });
@@ -104,7 +103,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
 
   return (
     pairs?.map(
-      (pair): MappedDetailedPair => {
+      (pair: any): MappedDetailedPair => {
         const yesterday = yesterdayVolumeIndex[pair.id];
 
         return {

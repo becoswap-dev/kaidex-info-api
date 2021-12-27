@@ -1,20 +1,20 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
+import { Request, Response} from 'express'
 import { getKaiPrice, getTokenByAddress } from "../../utils";
 import { return200, return400, return500 } from "../../utils/response";
 import { getAddress } from "@ethersproject/address";
 
-export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function (req: Request, res: Response): Promise<void> {
   if (
-    !req.query.address ||
-    typeof req.query.address !== "string" ||
-    !req.query.address.match(/^0x[0-9a-fA-F]{40}$/)
+    !req.params.address ||
+    typeof req.params.address !== "string" ||
+    !req.params.address.match(/^0x[0-9a-fA-F]{40}$/)
   ) {
     return400(res, "Invalid address");
     return;
   }
 
   try {
-    const address = getAddress(req.query.address);
+    const address = getAddress(req.params.address);
     const token = await getTokenByAddress(address.toLowerCase());
     const kaiPrice = await getKaiPrice()
 
@@ -28,6 +28,6 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
       },
     });
   } catch (error) {
-    return500(res, error);
+    return500(res, error as Error);
   }
 }

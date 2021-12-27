@@ -1,11 +1,11 @@
-import { VercelResponse } from "@vercel/node";
+import { Response } from "express";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export function return200(res: VercelResponse, body: any): VercelResponse {
+export function return200(res: Response, body: any): Response {
   return res.status(200).json(body);
 }
 
-export function returnError(res: VercelResponse, code: number, message: string): VercelResponse {
+export function returnError(res: Response, code: number, message: string): Response {
   return res.status(code).json({
     error: {
       code,
@@ -14,10 +14,10 @@ export function returnError(res: VercelResponse, code: number, message: string):
   });
 }
 
-export function return400(res: VercelResponse, message = "Bad request"): VercelResponse {
+export function return400(res: Response, message = "Bad request"): Response {
   return returnError(res, 400, message);
 }
 
-export function return500(res: VercelResponse, error: Error): VercelResponse {
+export function return500(res: Response, error: Error): Response {
   return returnError(res, 500, error.message);
 }

@@ -1,7 +1,7 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
 import { getAddress } from "@ethersproject/address";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
+import { Request, Response} from 'express'
 
 interface ReturnShape {
   [tokenIds: string]: {
@@ -20,11 +20,11 @@ interface ReturnShape {
   };
 }
 
-export default async function (req: VercelRequest, res: VercelResponse): Promise<void> {
+export default async function (req: Request, res: Response): Promise<void> {
   try {
     const topPairs = await getTopPairs();
 
-    const pairs = topPairs.reduce<ReturnShape>((accumulator, pair): ReturnShape => {
+    const pairs: any = topPairs.reduce<ReturnShape>((accumulator, pair: any): ReturnShape => {
       const pId = getAddress(pair.id);
       const t0Id = getAddress(pair.token0.id);
       const t1Id = getAddress(pair.token1.id);
@@ -49,6 +49,6 @@ export default async function (req: VercelRequest, res: VercelResponse): Promise
 
     return200(res, { updated_at: new Date().getTime(), data: pairs });
   } catch (error) {
-    return500(res, error);
+    return500(res, error as Error);
   }
 }
