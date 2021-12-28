@@ -53,12 +53,11 @@ export const TOP_PAIRS = gql`
   }
 `;
 
-
-export const KAI_PRICE  =  gql`
-query bundles {
-  bundles(where: { id: 1 }) {
-    id
-    kaiPrice
+export const KAI_PRICE = gql`
+  query bundles {
+    bundles(where: { id: 1 }) {
+      id
+      kaiPrice
+    }
   }
-}
 `;

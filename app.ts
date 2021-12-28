@@ -5,6 +5,8 @@ import tokens from './api/tokens/index'
 import tokenByAddress from './api/tokens/tokens'
 import NodeCache from 'node-cache'
 
+var app = express()
+
 const memCache = new NodeCache({
     stdTTL: 300,
     checkperiod: 300,

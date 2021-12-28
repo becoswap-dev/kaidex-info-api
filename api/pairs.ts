@@ -1,7 +1,7 @@
 import { getAddress } from "@ethersproject/address";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
-import { Request, Response} from 'express'
+import { Request, Response } from "express";
 
 interface ReturnShape {
   [tokenIds: string]: {

@@ -1,4 +1,4 @@
-import { Request, Response} from 'express'
+import { Request, Response } from "express";
 import { getAddress } from "@ethersproject/address";
 import { getTopPairs } from "../utils";
 import { return200, return500 } from "../utils/response";
@@ -33,7 +33,7 @@ export default async function (req: Request, res: Response): Promise<void> {
 
     return200(res, { updated_at: new Date().getTime(), data: pairs });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return500(res, error as Error);
   }
 }

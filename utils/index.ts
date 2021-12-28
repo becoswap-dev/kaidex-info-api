@@ -31,7 +31,7 @@ export async function getTokenByAddress(address: string): Promise<Token> {
     variables: {
       id: address,
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "no-cache",
   });
 
   if (tokenErrors && tokenErrors.length > 0) {
@@ -41,12 +41,12 @@ export async function getTokenByAddress(address: string): Promise<Token> {
   return token;
 }
 
-export async function getKaiPrice(): Promise<any>{
+export async function getKaiPrice(): Promise<any> {
   let result = await client.query({
     query: KAI_PRICE,
-    fetchPolicy: 'cache-first',
-  })
-  return result?.data?.bundles[0]?.kaiPrice
+    fetchPolicy: "no-cache",
+  });
+  return result?.data?.bundles[0]?.kaiPrice;
 }
 
 export async function getTopPairs(): Promise<MappedDetailedPair[]> {
@@ -66,7 +66,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
       limit: TOP_PAIR_LIMIT,
       excludeTokenIds: BLACKLIST,
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "no-cache",
   });
 
   if (topPairsErrors && topPairsErrors.length > 0) {
@@ -83,7 +83,7 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
       pairIds: pairs.map((pair) => pair.id),
       blockNumber: +firstBlock,
     },
-    fetchPolicy: "cache-first",
+    fetchPolicy: "no-cache",
   });
 
   if (yesterdayVolumeErrors && yesterdayVolumeErrors.length > 0) {
@@ -102,26 +102,24 @@ export async function getTopPairs(): Promise<MappedDetailedPair[]> {
     }, {}) ?? {};
 
   return (
-    pairs?.map(
-      (pair: any): MappedDetailedPair => {
-        const yesterday = yesterdayVolumeIndex[pair.id];
+    pairs?.map((pair: any): MappedDetailedPair => {
+      const yesterday = yesterdayVolumeIndex[pair.id];
 
-        return {
-          ...pair,
-          price:
-            pair.reserve0 !== "0" && pair.reserve1 !== "0"
-              ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
-              : "0",
-          previous24hVolumeToken0:
-            pair.volumeToken0 && yesterday?.volumeToken0
-              ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
-              : new BigNumber(pair.volumeToken0).toString(),
-          previous24hVolumeToken1:
-            pair.volumeToken1 && yesterday?.volumeToken1
-              ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
-              : new BigNumber(pair.volumeToken1).toString(),
-        };
-      }
-    ) ?? []
+      return {
+        ...pair,
+        price:
+          pair.reserve0 !== "0" && pair.reserve1 !== "0"
+            ? new BigNumber(pair.reserve1).dividedBy(pair.reserve0).toString()
+            : "0",
+        previous24hVolumeToken0:
+          pair.volumeToken0 && yesterday?.volumeToken0
+            ? new BigNumber(pair.volumeToken0).minus(yesterday.volumeToken0).toString()
+            : new BigNumber(pair.volumeToken0).toString(),
+        previous24hVolumeToken1:
+          pair.volumeToken1 && yesterday?.volumeToken1
+            ? new BigNumber(pair.volumeToken1).minus(yesterday.volumeToken1).toString()
+            : new BigNumber(pair.volumeToken1).toString(),
+      };
+    }) ?? []
   );
 }

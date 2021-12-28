@@ -1,4 +1,4 @@
-import { Request, Response} from 'express'
+import { Request, Response } from "express";
 import { getAddress } from "@ethersproject/address";
 import { getKaiPrice, getTopPairs } from "../../utils";
 import { return200, return500 } from "../../utils/response";
